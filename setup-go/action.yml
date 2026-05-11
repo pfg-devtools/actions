@@ -1,0 +1,12 @@
+name: setup-go
+description: Setup Go with module cache
+inputs:
+  go-version:
+    default: '1.23'
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version: ${{ inputs.go-version }}
+        cache: true

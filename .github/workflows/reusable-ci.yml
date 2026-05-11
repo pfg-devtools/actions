@@ -1,0 +1,16 @@
+name: reusable-ci
+on:
+  workflow_call:
+    inputs:
+      go-version:
+        type: string
+        default: '1.23'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pfg-devtools/actions/setup-go@main
+        with:
+          go-version: ${{ inputs.go-version }}
+      - run: go test ./...

@@ -1,0 +1,19 @@
+name: reusable-terraform
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        type: string
+        required: true
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pfg-devtools/actions/setup-terraform@main
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false
+      - run: terraform validate
